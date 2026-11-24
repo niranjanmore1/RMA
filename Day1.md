@@ -41,6 +41,7 @@ add entry in /etc/hosts
 ```jsx
 sudo mkdir /slurmdir 
 sudo chmod 777 /slurmdir
+cd /slurmdir
 ```
 
 ### *Slurm Installation **Common steps for controller and compute***
