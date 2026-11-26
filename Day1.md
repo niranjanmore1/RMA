@@ -249,6 +249,10 @@ check accounting is enable or not using
 ```jsx
 sacct 
 ```
+If Error Uncomment 
+```
+JobAcctGatherType=jobacct_gather/linux
+```
 
 After completing all setup enable all the services 
 
