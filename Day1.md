@@ -251,7 +251,7 @@ sacct
 ```
 If Error Uncomment 
 ```
-JobAcctGatherType=jobacct_gather/linux
+AccountingStorageType=accounting_storage/slurmdbd
 ```
 
 After completing all setup enable all the services 
