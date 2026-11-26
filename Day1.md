@@ -175,3 +175,100 @@ sudo systemctl status munge
 sudo mkdir -p /var/spool/slurm/d
 sudo chown gauravc:gauravc /var/spool/slurm/d
 ```
+#### After completing installation and state is idle for 1 controller and two compute nodes. now we setup slurmdbd for accounting
+
+slurmdbd setup on controller machine 
+
+**Configure SLURM Database:**
+
+cp slurmdbd.conf.example slurmdbd.conf
+
+```jsx
+DbdHost=controller
+DbdPort=6819
+
+SlurmUser=vafdrk
+DebugLevel=verbose
+
+LogFile=/var/log/slurm/slurmdbd.log
+PidFile=/var/run/slurmdbd.pid
+
+StorageType=accounting_storage/mysql
+StorageHost=localhost
+StoragePort=3306
+StoragePass=root
+StorageUser=vafdrk
+StorageLoc=slurm_acct_db
+```
+**Install and Configure MariaDB:**
+
+```jsx
+sudo apt-get install mariadb-server
+sudo systemctl start mysql
+sudo systemctl enable mysql
+```
+
+**Configure MySQL Users:**
+
+```jsx
+sudo mysql -u root
+```
+
+#### Then run
+
+```jsx
+CREATE DATABASE slurm_acct_db;
+CREATE USER 'vafdrk'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'vafdrk'@'localhost';
+FLUSH PRIVILEGES;
+```
+make service for slurmdbd 
+
+```jsx
+sudo cp slurmdbd.service /etc/systemd/system/
+```
+
+in slurm.conf uncomment 
+
+```jsx
+AccountingStorageType=accounting_storage/slurmdbd
+AccountingStorageHost=controller
+AccountingStoragePort=6819
+
+JobAcctGatherFrequency  = 30
+JobAcctGatherType       = jobacct_gather/linux
+```
+
+restart the slurmdbd service 
+
+```jsx
+sudo systemctl restart slurmdbd 
+```
+
+check accounting is enable or not using
+```jsx
+sacct 
+```
+
+After completing all setup enable all the services 
+
+```jsx
+sudo systemctl enable msyql
+sudo systemctl enable munge
+sudo systemctl enable slurmctld
+sudo systemctl enable slurmd
+sudo systemctl enable slurmdbd
+```
+#### Troubleshooting
+
+```jsx
+sacctmgr show associations
+```
+
+```jsx
+sudo sacctmgr add account vafdrk Cluster=hpccluster
+```
+
+```jsx
+sudo sacctmgr add user vafdrk Account=vafdrk Cluster=hpccluster
+```
