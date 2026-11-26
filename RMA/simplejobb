@@ -1,0 +1,5 @@
+#!/bin/bash
+#SBATCH --job-name=simplejoba
+#SBATCH --output=jobA.out
+echo "Running at B"
+sleep 20
