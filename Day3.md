@@ -51,4 +51,6 @@ squeue
 sacct
 scontrol show job job_id
 scontrol show partition partition_name
+sreport cluster utilization
+sreport user utilization
 ```
