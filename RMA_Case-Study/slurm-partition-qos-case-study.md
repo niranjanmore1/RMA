@@ -53,7 +53,7 @@ sacctmgr show qos format=Name,MaxJobsPU,Priority
 sacctmgr -i modify account where name=testaccount set DefaultQOS=normal
 
 # Account allowed QOS list (command as run in the lab)
-sacctmgr -i modify account where name=testaccount set QOS=testqos
+sacctmgr -i modify account where name=testaccount set QOS-=testqos
 
 # Inspect associations
 sacctmgr show association format=Cluster,Account,User,Partition,QOS,DefaultQOS
