@@ -56,10 +56,26 @@ sacctmgr add user ubuntu account=testaccount
 sacctmgr -i modify user where name=ubuntu account=testaccount cluster=linux set qos+=testqos
 ```
 
+### Set default QOS (so jobs use `testqos` without `--qos`)
+
+Allow the QOS on the account first, then make it the default (order matters, since DefaultQOS must be in the allowed QOS list):
+
+```bash
+sacctmgr -i modify account where name=testaccount set QOS=testqos
+```
+
+```bash
+sacctmgr -i modify account where name=testaccount set DefaultQOS=testqos
+```
+
+```bash
+sacctmgr -i modify user where name=ubuntu set DefaultQOS=testqos
+```
+
 ### Verify
 
 ```bash
-sacctmgr show association
+sacctmgr show association format=Cluster,Account,User,QOS,DefaultQOS
 ```
 
 ## 5. Restart services
