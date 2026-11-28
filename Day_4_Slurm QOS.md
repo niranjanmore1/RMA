@@ -123,15 +123,26 @@ Check:
 squeue
 ```
 
-Output:
+Output Cmd:
 
 ```bash
 for i in {1..6}; do sbatch -p shellpart --qos=testqos --account=testaccount --wrap="sleep 300"; done
 ```
-
+This Should Be Output
 ```
 Submitted batch job 85
+Submitted batch job 86for i in {1..6}; do sbatch -p shellpart --qos=testqos --account=testaccount --wrap="sleep 300"; done
+Submitted batch job 85
 Submitted batch job 86
+sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
+
 sbatch: error: QOSMaxSubmitJobPerUserLimit
 sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
 sbatch: error: QOSMaxSubmitJobPerUserLimit
