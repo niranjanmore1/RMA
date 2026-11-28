@@ -108,6 +108,14 @@ Check how many CPUs the node has:
 sinfo -N -l
 slurmd -C
 ```
+```
+sbatch -p debug -w Controller --exclusive --wrap="sleep 600"
+```
+Ru One By One For Output
+```
+for i in {1..2}; do sbatch --partition=debug --wrap="sleep 300"; done
+for i in {1..2}; do sbatch --partition=shellpart --wrap="sleep 300"; done
+```
 
 **Step 1:** fill the node with low-priority `debug` jobs (replace `2` with the node's CPU count):
 
