@@ -104,5 +104,5 @@ sbatch --account=testaccount --qos=testqos --partition=shellpart --wrap="sleep 3
 Check:
 
 ```bash
-squeue -o "%.8i %.10j %.10a %.8q %.10P %.8T %.10Q"
+squeue
 ```
